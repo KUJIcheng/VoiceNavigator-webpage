@@ -1,50 +1,52 @@
-name: Deploy Svelte App to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
+    branches: 'main'
+  workflow_dispatch:
+  
 jobs:
-  build:
+  build_site:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4  # ✅ 更新到最新版本
 
-      - name: Detect Node.js version
-        id: detect-node
-        run: echo "NODE_VERSION=$(node -p 'require(\"./package.json\").engines.node || \"18\"')" >> $GITHUB_ENV
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4  # ✅ 更新到 v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          node-version: 18
+          cache: npm
 
       - name: Install dependencies
         run: npm install
 
-      - name: Build Svelte app
+      - name: Build SvelteKit App
+        env:
+          BASE_PATH: '/${{ github.event.repository.name }}'
         run: npm run build
 
       - name: Debug build directory
-        run: ls -l build  # ⚠️ 如果你用的是 Vite Svelte，请改成 ls -l dist
+        run: ls -l build  # ✅ 确保 `build/` 目录存在
 
-      - name: Upload artifact for GitHub Pages
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload Artifacts
+        uses: actions/upload-pages-artifact@v3  # ✅ 更新到 v3
         with:
-          path: build  # ⚠️ SvelteKit 默认是 build/，Vite Svelte 需要改成 dist/
+          path: 'build/'  # ✅ 确保路径正确匹配 SvelteKit `adapter-static`
 
   deploy:
-    needs: build  # ✅ 确保 `deploy` 只有在 `build` 成功后才会执行
+    needs: build_site  # ✅ 确保 `deploy` 只在 `build_site` 成功后执行
     runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
-      - name: Deploy to GitHub Pages
+      - name: Deploy
+        id: deployment
         uses: actions/deploy-pages@v2
