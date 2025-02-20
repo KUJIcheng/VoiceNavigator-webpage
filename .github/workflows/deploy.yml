@@ -3,7 +3,7 @@ name: Deploy Svelte App to GitHub Pages
 on:
   push:
     branches:
-      - main  # 只有当 main 分支有更新时，才会触发部署
+      - main  # 只有 main 分支有更新时，才会触发部署
 
 permissions:
   contents: read
@@ -20,13 +20,13 @@ jobs:
 
       - name: Detect Node.js version
         id: detect-node
-        run: echo "NODE_VERSION=$(node -p 'require("./package.json").engines.node || "18"')" >> $GITHUB_ENV
+        run: echo "NODE_VERSION=$(node -p 'require(\"./package.json\").engines.node || \"18\"')" >> $GITHUB_ENV
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}  # 自动匹配本地 Node.js 版本
-          cache: 'npm'  # 缓存依赖，提高速度
+          cache: 'npm'  # 缓存 npm 依赖，加快构建速度
 
       - name: Install dependencies
         run: npm install
@@ -35,9 +35,9 @@ jobs:
         run: npm run build
 
       - name: Upload artifact for GitHub Pages
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3  # ✅ 更新至 v3，修复废弃问题
         with:
-          path: build  # ⚠️ SvelteKit 默认是 build/，如果你用的是 Vite Svelte，请改成 dist/
+          path: build  # ⚠️ SvelteKit 默认是 build/，Vite Svelte 需要改成 dist/
 
   deploy:
     needs: build
