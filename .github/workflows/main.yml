@@ -2,7 +2,10 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    # --- [修改] 这里把原先的 `branches: [ main ]` 改为数组，并添加 `develop` ---
+    branches:
+      - main
+      - develop
   workflow_dispatch:
 
 jobs:
@@ -29,13 +32,13 @@ jobs:
       - name: Build
         run: npm run build
 
-      # （可选）调试一下 build 文件夹里到底有什么
+      # 5. （可选）调试一下 build 文件夹里到底有什么
       - name: Debug build output
         run: |
           echo "Listing contents of build folder..."
           ls -la build
 
-      # 5. 上传构建产物
+      # 6. 上传构建产物
       - name: Upload artifact for Pages
         uses: actions/upload-pages-artifact@v3
         with:
@@ -56,7 +59,7 @@ jobs:
       id-token: write
 
     steps:
-      # 6. 部署到 GitHub Pages
+      # 7. 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v2
         with:
