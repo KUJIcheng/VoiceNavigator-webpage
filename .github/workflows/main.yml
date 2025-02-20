@@ -2,63 +2,49 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    # 在哪些分支上触发自动部署，如只想在 main 上部署，则保持 [ main ]
-    branches: [ main ]
+    branches: 'main'
   workflow_dispatch:
-
+  
 jobs:
-  build:
+  build_site:
     runs-on: ubuntu-latest
-
     steps:
-      # 1. 检出当前仓库代码
       - name: Checkout
         uses: actions/checkout@v3
-
-      # 2. 安装 Node.js 18（你也可以改为 16 或 20）
-      - name: Use Node 18
+      - name: Install Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: npm
 
-      # 3. 安装依赖
       - name: Install dependencies
         run: npm install
 
-      # 4. 构建
-      - name: Build
-        # 如果你需要对 SvelteKit 做 base path 处理，可在这里声明环境变量
-        # env:
-        #   BASE_PATH: '/YOUR_REPO_NAME'
-        run: npm run build
-
-      # 5. （可选）查看 build 文件夹里到底生成了什么
-      - name: Debug build output
+      - name: build
+        env:
+          BASE_PATH: '/${{ github.event.repository.name }}'
         run: |
-          echo "=== Listing 'build' folder ==="
-          ls -la build
+          npm run build
 
-      # 6. 上传构建产物 (artifact)，给后续部署使用
-      - name: Upload artifact for Pages
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload Artifacts
+        uses: actions/upload-pages-artifact@v2
         with:
-          path: 'build'           # 这就是构建生成的静态文件夹
-          name: 'github-pages'    # artifact 名称，后面要与部署对应
+          # this should match the `pages` option in your adapter-static options
+          path: 'build/'
 
   deploy:
-    # 要先执行 build job，才能拿到 artifact
-    needs: build
+    needs: build_site
     runs-on: ubuntu-latest
 
     permissions:
-      pages: write    # 必须有 pages:write
-      id-token: write # 以及 id-token:write
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      # 7. 部署到 GitHub Pages
-      - name: Deploy to GitHub Pages
+      - name: Deploy
+        id: deployment
         uses: actions/deploy-pages@v2
-        with:
-          # 要与上面 "name: 'github-pages'" 一致
-          artifact_name: 'github-pages'
