@@ -2,16 +2,18 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: 'main'
+    branches: [ main ]
+  # 可以加上手动触发
   workflow_dispatch:
-  
+
 jobs:
-  build_site:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Check out code
         uses: actions/checkout@v3
-      - name: Install Node.js
+
+      - name: Use Node 18
         uses: actions/setup-node@v3
         with:
           node-version: 18
@@ -20,31 +22,31 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: build
+      # 假设你在 package.json 里有 "build": "vite build" 或 SvelteKit 的 "build"
+      - name: Build
         env:
-          BASE_PATH: '/${{ github.event.repository.name }}'
-        run: |
-          npm run build
+          # 仅当你需要在 svelte.config.js 里利用 BASE_PATH
+          BASE_PATH: '/repoName'
+        run: npm run build
 
-      - name: Upload Artifacts
+      - name: Upload artifact for Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          # this should match the `pages` option in your adapter-static options
+          # 如果你的构建输出目录就是 build/
           path: 'build/'
+          # 也可以加个 name，默认值就是 github-pages
+          name: 'github-pages'
 
   deploy:
-    needs: build_site
+    needs: build
     runs-on: ubuntu-latest
-
     permissions:
-      pages: write
-      id-token: write
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      pages: write    # 必须
+      id-token: write # 如果没有这个也会出问题
 
     steps:
-      - name: Deploy
-        id: deployment
+      - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v2
+        with:
+          # 如果上面用了自定义 name，就要对应上
+          artifact_name: 'github-pages'
