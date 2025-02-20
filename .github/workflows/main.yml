@@ -34,8 +34,8 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './build/'
-          name: 'github-pages'  # 确保上传的 artifact 名称匹配 deploy 阶段
+          path: './build/'  # 确保路径正确
+          name: 'github-pages'  # 确保上传的 artifact 名称匹配 deploy
 
   deploy:
     needs: build_site
@@ -54,4 +54,4 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v2
         with:
-          artifact_name: 'github-pages'  # 确保从正确的 artifact 部署
+          artifact_name: 'github-pages'  # 确保 artifact 名称一致
