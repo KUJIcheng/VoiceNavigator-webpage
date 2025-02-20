@@ -2,49 +2,63 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: 'main'
+    branches: [ main ]
   workflow_dispatch:
-  
+
 jobs:
-  build_site:
+  build:
     runs-on: ubuntu-latest
+
     steps:
+      # 1. 检出仓库代码
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Install Node.js
+
+      # 2. 使用 Node 18（你也可以选 16/20 等）
+      - name: Use Node 18
         uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: npm
 
+      # 3. 安装依赖
       - name: Install dependencies
         run: npm install
 
-      - name: build
-        env:
-          BASE_PATH: '/${{ github.event.repository.name }}'
-        run: |
-          npm run build
+      # 4. 构建
+      - name: Build
+        run: npm run build
 
-      - name: Upload Artifacts
+      # （可选）调试一下 build 文件夹里到底有什么
+      - name: Debug build output
+        run: |
+          echo "Listing contents of build folder..."
+          ls -la build
+
+      # 5. 上传构建产物
+      - name: Upload artifact for Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          # this should match the `pages` option in your adapter-static options
-          path: 'build/'
+          # 这里就是你构建生成的静态文件所在目录
+          path: 'build'
+          # Artifact 的名称，可以自定义，但要与后面保持一致
+          name: 'github-pages'
 
   deploy:
-    needs: build_site
+    # 声明这个 job 依赖上面 build job 的结果
+    needs: build
     runs-on: ubuntu-latest
 
     permissions:
+      # 必须给 pages 写权限
       pages: write
+      # 还要给 id-token 写权限
       id-token: write
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v3
+      # 6. 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v2
+        with:
+          # 要跟刚才 upload 的 artifact 名称对应
+          artifact_name: 'github-pages'
