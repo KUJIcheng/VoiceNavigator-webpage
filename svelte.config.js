@@ -6,15 +6,15 @@ const config = {
 		adapter: adapter({
 			pages: 'build',
 			assets: 'build',
-			fallback: 'index.html',  // ✅ 这里改成 index.html，避免 404
+			fallback: 'index.html',  // ✅ 确保 GitHub Pages 入口正确
 			precompress: false,
 			strict: true
 		}),
-		prerender: {
-			default: true  // ✅ 确保所有页面都被 prerender 成静态 HTML
-		},
 		paths: {
-			base: process.env.BASE_PATH || ''
+			base: process.argv.includes('dev') ? '' : process.env.BASE_PATH || '/你的仓库名'
+		},
+		prerender: {
+			entries: ['*']  // ✅ 让所有页面都生成 `index.html`
 		}
 	}
 };
