@@ -3,20 +3,18 @@ import adapter from '@sveltejs/adapter-static';
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	kit: {
-		// adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.
-		// If your environment is not supported or you settled on a specific environment, switch out the adapter.
-		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 		adapter: adapter({
-			// default options are shown. On some platforms
-			// these options are set automatically — see below
 			pages: 'build',
 			assets: 'build',
-			fallback: '404.html',
+			fallback: 'index.html',  // ✅ 这里改成 index.html，避免 404
 			precompress: false,
 			strict: true
 		}),
+		prerender: {
+			default: true  // ✅ 确保所有页面都被 prerender 成静态 HTML
+		},
 		paths: {
-			base: process.argv.includes('dev') ? '' : process.env.BASE_PATH
+			base: process.env.BASE_PATH || ''
 		}
 	}
 };
