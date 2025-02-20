@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4  # ✅ 更新到最新版本
+        uses: actions/checkout@v4
 
       - name: Install Node.js
-        uses: actions/setup-node@v4  # ✅ 更新到 v4
+        uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: npm
@@ -22,20 +22,24 @@ jobs:
         run: npm install
 
       - name: Build SvelteKit App
-        env:
-          BASE_PATH: '/${{ github.event.repository.name }}'
-        run: npm run build
+        run: |
+          set -e
+          BASE_PATH="/${{ github.event.repository.name }}" npm run build
 
       - name: Debug build directory
-        run: ls -l build  # ✅ 确保 `build/` 目录存在
+        run: |
+          echo "Checking build directory..."
+          ls -lah build/
+          echo "Checking deeper..."
+          find build/
 
       - name: Upload Artifacts
-        uses: actions/upload-pages-artifact@v3  # ✅ 更新到 v3
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: 'build/'  # ✅ 确保路径正确匹配 SvelteKit `adapter-static`
+          path: build/  # ⚠️ SvelteKit 默认是 build/
 
   deploy:
-    needs: build_site  # ✅ 确保 `deploy` 只在 `build_site` 成功后执行
+    needs: build_site  # ✅ 确保 `deploy` 任务必须等待 `build_site`
     runs-on: ubuntu-latest
 
     permissions:
