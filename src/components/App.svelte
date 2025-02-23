@@ -1,30 +1,109 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
 
-  let activeSection = "intro"; // 默认高亮 Introduction
+  let agents = ["greeter", "OCR", "selfOperating"];
+
+  // 动态大小（基于窗口宽度）
+  let userSize = "8vw";  // User 大小
+  let agentSize = "6vw"; // Agent 大小
+  let radius = "14vw";   // 旋转半径
+
+  const positions = [
+    { bottom: "10%", left: "46%", transform: `translate(-${radius}, 0) scale(1)` }, // 左下角
+    { bottom: "50%", left: "50%", transform: `translateX(-50%) scale(1.5)` },   // 正下方（放大）
+    { bottom: "10%", left: "46%", transform: `translate(${radius}, 0) scale(1)` }  // 右下角
+  ];
+
+  // 初始位置：greeter(中间) -> OCR(左下) -> selfOperating(右下)
+  let order = [1, 0, 2];
+
+  // 当前在 user 下方的 Agent
+  let activeAgentIndex = 0;
+
+  // 是否自动轮换
+  let autoRotate = true;
+  let rotateInterval;
+
+  // 页面挂载后，每 3 秒轮换
+  onMount(() => {
+    rotateInterval = setInterval(rotateAgents, 3000);
+    return () => clearInterval(rotateInterval);
+  });
+
+  async function rotateAgents() {
+    if (!autoRotate) return;
+
+    setTimeout(async () => {
+      const last = order.pop();
+      order.unshift(last);
+      order = [...order]; // 触发响应式
+      activeAgentIndex = order.findIndex(posIndex => posIndex === 1);
+      await tick();
+    }, 50);
+  }
+
+  async function switchAgent(agent) {
+    let index = agents.indexOf(agent);
+    if (index === -1 || index === activeAgentIndex) return;
+
+    autoRotate = false;
+
+    let safetyCounter = 0;
+    while (order[index] !== 1 && safetyCounter < 6) {
+      const last = order.pop();
+      order.unshift(last);
+      order = [...order];
+
+      await tick();
+      safetyCounter++;
+    }
+
+    activeAgentIndex = order.findIndex(posIndex => posIndex === 1);
+
+    setTimeout(() => {
+      autoRotate = true;
+    }, 3000);
+  }
+
+  // 监听窗口大小变化，动态调整大小
+  function updateSizes() {
+    const width = window.innerWidth;
+    userSize = `${Math.max(60, width * 0.08)}px`;
+    agentSize = `${Math.max(50, width * 0.05)}px`;
+    radius = `${Math.max(100, width * 0.05)}px`;
+  }
+
+  onMount(() => {
+    updateSizes();
+    window.addEventListener("resize", updateSizes);
+    return () => window.removeEventListener("resize", updateSizes);
+  });
+
+  // 监听滚动 & activeSection
+  let activeSection = "intro";
+  onMount(() => {
+    function handleScroll() {
+      const sections = document.querySelectorAll("section");
+      let currentSection = "intro";
+
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (
+          rect.top <= window.innerHeight * 0.5 &&
+          rect.bottom >= window.innerHeight * 0.5
+        ) {
+          currentSection = section.id;
+        }
+      });
+      activeSection = currentSection;
+    }
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  });
 
   function navigateTo(section) {
     document.getElementById(section).scrollIntoView({ behavior: "smooth" });
   }
-
-  onMount(() => {
-    function handleScroll() {
-      const sections = document.querySelectorAll("section");
-      let currentSection = "intro"; // 默认
-
-      sections.forEach((section) => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= window.innerHeight * 0.5 && rect.bottom >= window.innerHeight * 0.5) {
-          currentSection = section.id;
-        }
-      });
-
-      activeSection = currentSection;
-    }
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  });
 </script>
 
 <main>
@@ -68,10 +147,92 @@
       </div>
     </section>
 
-    <section id="framework">
+    <section id="framework" class="framework-section">
+    
+      <!-- 左侧动画 -->
+      <div class="animation-container">
+        <img src="user.png" alt="User" class="user" style="width: {userSize}; height: {userSize};"/>
+    
+        {#each agents as agent, i (agent)}
+          <img
+            src="{agent}.png"
+            alt="{agent}"
+            class="agent"
+            style="
+              bottom: {positions[order[i]].bottom}; 
+              left: {positions[order[i]].left}; 
+              transform: {positions[order[i]].transform};
+              width: {agentSize}; 
+              height: {agentSize};
+            "
+          />
+        {/each}
+      </div>
+    
+      <!-- 右侧介绍 -->
+      <div class="info-container">
+        <p class="framework-intro-text">
+          The Agent Framework intelligently identifies user intent and dynamically switches between specialized agents 
+          to accomplish tasks.
+        </p>
+        <div class="agent-buttons">
+          {#each agents as agent, i}
+            <button
+              class="{activeAgentIndex === i ? 'selected' : ''}"
+              on:click={() => switchAgent(agent)}
+            >
+              <img src="{agent}.png" alt="{agent}" />
+            </button>
+          {/each}
+        </div>
+    
+        <!-- 详细的 Agent 描述 -->
+        <div class="agent-description">
+          {#if agents[activeAgentIndex] === "greeter"}
+            <h3>Greeter Agent</h3>
+            <p>
+              The Greeter Agent serves as the central coordinator, analyzing user intent and routing tasks to 
+              the appropriate agent.
+            </p>
+            <ul>
+              <li>Engages with users to understand their needs</li>
+              <li>Determines whether tasks require system control or content interpretation</li>
+              <li>Seamlessly hands off tasks to other agents</li>
+              <li>Provides contextual follow-ups for smoother interactions</li>
+            </ul>
+          {:else if agents[activeAgentIndex] === "OCR"}
+            <h3>OCR Agent</h3>
+            <p>
+              The OCR Agent processes on-screen content and converts it into structured descriptions, 
+              making information more accessible.
+            </p>
+            <ul>
+              <li>Extracts text and graphical information from the screen</li>
+              <li>Provides descriptions of UI elements for better navigation</li>
+              <li>Assists visually impaired users by narrating content</li>
+              <li>Works alongside the Self-Operating System Agent for interactive tasks</li>
+            </ul>
+          {:else if agents[activeAgentIndex] === "selfOperating"}
+            <h3>Self-Operating System Agent</h3>
+            <p>
+              The Self-Operating System Agent enables users to control their computer using natural language commands, 
+              automating various system interactions.
+            </p>
+            <ul>
+              <li>Executes user commands for application control</li>
+              <li>Automates routine tasks and workflows</li>
+              <li>Adjusts system settings based on voice instructions</li>
+              <li>Integrates with the OCR Agent for adaptive screen interactions</li>
+            </ul>
+          {/if}
+        </div>
+      </div>
+    </section>
+
+    <!-- <section id="framework">
       <h2>All-in-One Multi-Agent System in Harmony</h2>
       <p>Introducing our multi-agent framework and how it collaborates to offer the best user experience.</p>
-    </section>
+    </section> -->
 
     <section id="usage">
       <h2>From Visual Assistance to Hands-Free Control</h2>
@@ -170,7 +331,7 @@
     background: linear-gradient(135deg, #12172A, #0A2E5D);
     color: white;
     text-align: center;
-    padding-top: 4vh; /* 确保 introduction 内容不会被 top-bar 遮住 */
+    padding-top: 4vh;
   }
 
   .intro-content {
@@ -218,4 +379,101 @@
   .feature-card p {
     font-size: 1.5vh;
   }
+
+  .framework-section {
+    display: flex;
+    justify-content: flex-start; /* 整体靠左 */
+    align-items: center;
+    height: 90vh;
+    padding: 50px;
+    background: linear-gradient(135deg, #12172A, #0A2E5D);
+    color: white;
+  }
+
+  .animation-container {
+    position: relative;
+    width: 50%; /* 让动画区域稍微靠左 */
+    height: 400px;
+  }
+
+  /* 用户图像 */
+  .user {
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* 3 个 agent 图标 */
+  .agent {
+    position: absolute;
+    transition: all 1s ease-in-out;
+  }
+
+  /* 右侧 UI */
+  .info-container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .agent-buttons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .agent-buttons button {
+    background: none;
+    border: 2px solid transparent;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .agent-buttons button img {
+    width: 50px;
+  }
+
+  .agent-buttons button:hover,
+  .agent-buttons button.selected {
+    border-color: #FFD700;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+/* 确保描述框大小不变 */
+.agent-description {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  width: 420px;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.framework-intro-text {
+  font-family: 'Orbitron', sans-serif; /* 现代科技字体 */
+  font-size: 20px; /* 适当放大字体 */
+  font-weight: 600; /* 加粗提升可读性 */
+  text-align: center; /* 居中显示 */
+  letter-spacing: 1px; /* 增加字间距，让文本更有科技感 */
+  background: linear-gradient(90deg, #FFD700, #FFA500, #FF4500); /* 金色->橙色->红色渐变 */
+  -webkit-background-clip: text; /* 让背景仅应用于文本 */
+  background-clip: text;
+  -webkit-text-fill-color: transparent; /* 让文本变成渐变色 */
+  text-shadow: 0px 0px 10px rgba(255, 215, 0, 0.8); /* 发光效果 */
+  padding-bottom: 10px; /* 与按钮部分保持一定距离 */
+}
+
+.agent-description ul {
+  padding-left: 20px;
+}
+
+.agent-description li {
+  margin: 0px 0;
+}
 </style>
