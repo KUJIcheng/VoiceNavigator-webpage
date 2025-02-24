@@ -145,6 +145,29 @@
           </div>
         </div>
       </div>
+
+      <div class="team-container">
+        <div class="team-member">
+            <img src="zyx.jpg" alt="ZYX" class="team-photo" />
+            <h4>Yuxuan Zhang</h4>
+            <p>yuz165@ucsd.edu</p>
+        </div>
+        <div class="team-member">
+            <img src="xxc.jpg" alt="XXC" class="team-photo" />
+            <h4>Xuecheng Xu</h4>
+            <p>xuxu@ucsd.edu</p>
+        </div>
+        <div class="team-member">
+            <img src="lyh.jpg" alt="LYH" class="team-photo" />
+            <h4>Yihong Li</h4>
+            <p>yil168@ucsd.edu</p>
+        </div>
+        <div class="team-member">
+            <img src="zh.jpg" alt="Hao Zhang (Mentor)" class="team-photo" />
+            <h4>Hao Zhang (Mentor)</h4>
+            <p>haozhang@ucsd.edu</p>
+        </div>
+    </div>
     </section>
 
     <section id="framework" class="framework-section">
@@ -229,15 +252,38 @@
       </div>
     </section>
 
-    <!-- <section id="framework">
-      <h2>All-in-One Multi-Agent System in Harmony</h2>
-      <p>Introducing our multi-agent framework and how it collaborates to offer the best user experience.</p>
-    </section> -->
-
-    <section id="usage">
+    <section id="usage" class="usage-section">
       <h2>From Visual Assistance to Hands-Free Control</h2>
       <p>Showcasing use cases for visually impaired users, elderly users, and general users.</p>
+  
+      <div class="usage-container">
+          <!-- 视觉障碍人群 -->
+          <div class="usage-card">
+              <img src="blind.png" alt="Visually Impaired Users" class="usage-icon" />
+              <h3>Visually Impaired Users</h3>
+              <p>The Agent Framework provides hands-free computer control and screen narration, making digital content accessible to visually impaired users.</p>
+          </div>
+  
+          <!-- 老年用户 -->
+          <div class="usage-card">
+              <img src="elder.png" alt="Elderly Users" class="usage-icon" />
+              <h3>Elderly Users</h3>
+              <p>For older adults, the system simplifies complex online processes, such as bill payments, medical appointments, and digital navigation.</p>
+          </div>
+  
+          <!-- 一般用户 -->
+          <div class="usage-card">
+              <img src="normaluser.png" alt="General Users" class="usage-icon" />
+              <h3>General Users</h3>
+              <p>Allows users to operate their computer through voice commands when their hands are occupied, such as cooking or exercising.</p>
+          </div>
+      </div>
     </section>
+  
+    <!-- <section id="usage">
+      <h2>From Visual Assistance to Hands-Free Control</h2>
+      <p>Showcasing use cases for visually impaired users, elderly users, and general users.</p>
+    </section> -->
 
     <section id="impact">
       <h2>Closing the Digital Divide with AI</h2>
@@ -325,6 +371,7 @@
 
   .intro-section {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
@@ -335,49 +382,92 @@
   }
 
   .intro-content {
-    max-width: 800px;
-    padding: 40px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
+      max-width: 800px;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
   }
 
   .intro-title {
-    font-size: 3.5vh;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-family: 'Orbitron', sans-serif;
-    letter-spacing: 2px;
+      font-size: 3.5vh;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 2px;
   }
 
   .intro-text {
-    font-size: 2vh;
-    margin-top: 15px;
-    line-height: 1.6;
+      font-size: 2vh;
+      margin-top: 15px;
+      line-height: 1.6;
   }
 
   .features {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
   }
 
   .feature-card {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 15px;
-    border-radius: 10px;
-    width: 30%;
-    text-align: center;
-    font-size: 1.6vh;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 15px;
+      border-radius: 10px;
+      width: 30%;
+      text-align: center;
+      font-size: 1.6vh;
   }
 
   .feature-card h3 {
-    font-size: 2vh;
+      font-size: 2vh;
   }
 
   .feature-card p {
-    font-size: 1.5vh;
+      font-size: 1.5vh;
+  }
+
+  /* 👥 团队成员部分 */
+  .team-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .team-member {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      width: 100px; /* 调整缩小 */
+      transition: transform 0.3s ease-in-out, background 0.3s;
+  }
+
+  .team-member:hover {
+      transform: translateY(-4px);
+      background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* 🎭 头像 */
+  .team-photo {
+      width: 100%;
+      aspect-ratio: 1; /* 确保正方形 */
+      border-radius: 8px;
+      object-fit: cover;
+  }
+
+  /* 🏷️ 名字 */
+  .team-member h4 {
+      font-size: 1.6vh;
+      margin-top: 8px;
+  }
+
+  /* 📧 邮箱 */
+  .team-member p {
+      font-size: 1.3vh;
+      color: #ccc;
   }
 
   .framework-section {
@@ -443,37 +533,102 @@
     background: rgba(255, 255, 255, 0.2);
   }
 
-/* 确保描述框大小不变 */
-.agent-description {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 20px;
-  border-radius: 10px;
-  width: 420px;
-  min-height: 320px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+  .agent-description {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    width: 420px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
-.framework-intro-text {
-  font-family: 'Orbitron', sans-serif; /* 现代科技字体 */
-  font-size: 20px; /* 适当放大字体 */
-  font-weight: 600; /* 加粗提升可读性 */
-  text-align: center; /* 居中显示 */
-  letter-spacing: 1px; /* 增加字间距，让文本更有科技感 */
-  background: linear-gradient(90deg, #FFD700, #FFA500, #FF4500); /* 金色->橙色->红色渐变 */
-  -webkit-background-clip: text; /* 让背景仅应用于文本 */
-  background-clip: text;
-  -webkit-text-fill-color: transparent; /* 让文本变成渐变色 */
-  text-shadow: 0px 0px 10px rgba(255, 215, 0, 0.8); /* 发光效果 */
-  padding-bottom: 10px; /* 与按钮部分保持一定距离 */
-}
+  .framework-intro-text {
+    font-family: 'Orbitron', sans-serif; /* 现代科技字体 */
+    font-size: 18px; /* 适当放大字体 */
+    font-weight: 500; /* 加粗提升可读性 */
+    text-align: center; /* 居中显示 */
+    letter-spacing: 1px; /* 增加字间距，让文本更有科技感 */
+    background: linear-gradient(90deg, #FFD700, #FFA500, #FF4500); /* 金色->橙色->红色渐变 */
+    -webkit-background-clip: text; /* 让背景仅应用于文本 */
+    background-clip: text;
+    -webkit-text-fill-color: transparent; /* 让文本变成渐变色 */
+    text-shadow: 0px 0px 10px rgba(255, 215, 0, 0.8); /* 发光效果 */
+    padding-bottom: 10px; /* 与按钮部分保持一定距离 */
+  }
 
-.agent-description ul {
-  padding-left: 20px;
-}
+  .agent-description ul {
+    padding-left: 20px;
+  }
 
-.agent-description li {
-  margin: 0px 0;
-}
+  .agent-description li {
+    margin: 0px 0;
+  }
+
+  .usage-section {
+    text-align: center;
+    height: 90vh;
+    padding: 50px 10%;
+    background: linear-gradient(135deg, #2e60a1, #3f5c81); /* 比框架部分更浅的蓝色 */
+    color: white;
+  }
+
+  .usage-section h2 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .usage-section p {
+    font-size: 18px;
+    color: #DDD; /* 稍微降低亮度，防止过度对比 */
+    margin-bottom: 40px;
+  }
+
+  /* 3 个圆角矩形容器 */
+  .usage-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* 每个使用场景的卡片 */
+  .usage-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.15); /* 半透明浅色背景 */
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out, background 0.3s;
+  }
+
+  /* 悬停时让卡片有一点亮度变化和缩放 */
+  .usage-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  /* 圆角矩形中的 Icon */
+  .usage-icon {
+    width: 80px; /* 适中的尺寸 */
+    margin-bottom: 15px;
+    opacity: 0.9;
+  }
+
+  /* 标题 */
+  .usage-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  /* 文字描述 */
+  .usage-card p {
+    font-size: 16px;
+    color: #EEE;
+    line-height: 1.5;
+  }
 </style>
