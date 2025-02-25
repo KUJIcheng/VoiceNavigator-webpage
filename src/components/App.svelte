@@ -671,6 +671,7 @@
       border-radius: 10px;
       width: clamp(320px, 48vw, 500px);
       min-height: clamp(220px, 32vh, 500px);
+      max-height: 500px;
       display: flex;
       flex-direction: column;
       justify-content: center;
