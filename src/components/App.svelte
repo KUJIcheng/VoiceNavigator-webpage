@@ -364,7 +364,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 40px;
+    padding: 0 1vw;
     backdrop-filter: blur(12px);
     background: linear-gradient(to right, rgba(20, 20, 50, 0.7), rgba(29, 77, 130, 0.7));
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
