@@ -9,9 +9,9 @@
   let radius = "14vw";   // 旋转半径
 
   const positions = [
-    { bottom: "10%", left: "46%", transform: `translate(-${radius}, 0) scale(1)` }, // 左下角
-    { bottom: "50%", left: "50%", transform: `translateX(-50%) scale(1.5)` },   // 正下方（放大）
-    { bottom: "10%", left: "46%", transform: `translate(${radius}, 0) scale(1)` }  // 右下角
+    { bottom: "-10%", left: "46%", transform: `translate(-${radius}, 0) scale(1)` }, // 左下角
+    { bottom: "30%", left: "50%", transform: `translateX(-50%) scale(1.5)` },   // 正下方（放大）
+    { bottom: "-10%", left: "46%", transform: `translate(${radius}, 0) scale(1)` }  // 右下角
   ];
 
   // 初始位置：greeter(中间) -> OCR(左下) -> selfOperating(右下)
@@ -318,7 +318,7 @@
     justify-content: space-between;
     padding: 0 40px;
     backdrop-filter: blur(12px);
-    background: linear-gradient(to right, rgba(20, 20, 50, 0.9), rgba(29, 77, 130, 0.95));
+    background: linear-gradient(to right, rgba(20, 20, 50, 0.7), rgba(29, 77, 130, 0.7));
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     z-index: 1000; /* 确保导航栏始终在最上层 */
   }
@@ -374,77 +374,88 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    min-height: 90vh;
+    padding: 5vh 5vw;
     background: linear-gradient(135deg, #12172A, #0A2E5D);
     color: white;
     text-align: center;
-    padding-top: 4vh;
+    padding-top: 9vh;
   }
 
+  /* 🟡 主要介绍框架的大框 */
   .intro-content {
-      max-width: 800px;
-      padding: 40px;
+      max-width: 1000px;
+      padding: clamp(20px, 2vw, 40px);
       background: rgba(255, 255, 255, 0.1);
       border-radius: 15px;
       backdrop-filter: blur(10px);
   }
 
+  /* 动态标题 */
   .intro-title {
-      font-size: 3.5vh;
+      font-size: clamp(1.2rem, 1.7vw, 2.5rem);
       font-weight: bold;
       text-transform: uppercase;
       font-family: 'Orbitron', sans-serif;
       letter-spacing: 2px;
   }
 
+  /* 动态正文 */
   .intro-text {
-      font-size: 2vh;
+      font-size: clamp(1rem, 1vw, 1.5rem);
       margin-top: 15px;
       line-height: 1.6;
   }
 
+  /* 3 个特点卡片 */
   .features {
       display: flex;
       justify-content: center;
-      gap: 15px;
-      margin-top: 30px;
+      gap: 1vw;
+      margin-top: 20px;
+      flex-wrap: wrap;
   }
 
+  /* 每个功能介绍卡片 */
   .feature-card {
       background: rgba(255, 255, 255, 0.2);
-      padding: 15px;
+      padding: clamp(10px, 1vw, 15px);
       border-radius: 10px;
-      width: 30%;
+      width: clamp(150px, 30%, 280px);
       text-align: center;
-      font-size: 1.6vh;
+      font-size: clamp(0.1rem, 0.2vw, 0.2rem);
   }
 
+  /* 卡片标题 */
   .feature-card h3 {
-      font-size: 2vh;
+      font-size: clamp(1rem, 0.95vw, 1.6rem);
   }
 
+  /* 卡片正文 */
   .feature-card p {
-      font-size: 1.5vh;
+      font-size: clamp(0.8rem, 0.75vw, 1.1rem);
   }
 
-  /* 👥 团队成员部分 */
+  /* 📌 团队成员部分 */
   .team-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 20px;
-    flex-wrap: wrap;
+      display: flex;
+      justify-content: center;
+      gap: 0.8vw;
+      margin-top: 25px;
+      flex-wrap: wrap;
   }
 
+  /* 🏆 团队成员卡片 */
   .team-member {
       background: rgba(255, 255, 255, 0.1);
-      padding: 10px;
+      padding: clamp(5px, 1vw, 10px);
       border-radius: 8px;
       text-align: center;
-      width: 100px; /* 调整缩小 */
+      width: clamp(80px, 12vw, 120px);
       transition: transform 0.3s ease-in-out, background 0.3s;
   }
 
+  /* 悬停效果 */
   .team-member:hover {
       transform: translateY(-4px);
       background: rgba(255, 255, 255, 0.2);
@@ -453,21 +464,49 @@
   /* 🎭 头像 */
   .team-photo {
       width: 100%;
-      aspect-ratio: 1; /* 确保正方形 */
+      aspect-ratio: 1;
       border-radius: 8px;
       object-fit: cover;
   }
 
   /* 🏷️ 名字 */
   .team-member h4 {
-      font-size: 1.6vh;
+      font-size: clamp(0.9rem, 0.2vw, 1.4rem);
       margin-top: 8px;
   }
 
   /* 📧 邮箱 */
   .team-member p {
-      font-size: 1.3vh;
+      font-size: clamp(0.7rem, 0.2vw, 1.1rem);
       color: #ccc;
+  }
+
+  /* 📌 小屏幕优化 */
+  @media (max-width: 800px) {
+      .features {
+          flex-direction: column;
+          gap: 15px;
+          align-items: center;
+      }
+
+      .feature-card {
+          width: 80%;
+      }
+
+      .team-container {
+          flex-direction: column;
+          align-items: center;
+      }
+
+      .team-member {
+          width: 50%;
+      }
+  }
+
+  @media (max-width: 500px) {
+      .team-member {
+          width: 70%;
+      }
   }
 
   .framework-section {
@@ -568,67 +607,92 @@
 
   .usage-section {
     text-align: center;
-    height: 90vh;
-    padding: 50px 10%;
-    background: linear-gradient(135deg, #2e60a1, #3f5c81); /* 比框架部分更浅的蓝色 */
+    min-height: 90vh;
+    padding: 8vh 5vw; /* 根据屏幕大小调整内边距 */
+    background: linear-gradient(135deg, #2e60a1, #3f5c81);
     color: white;
   }
 
+  /* 动态标题大小 */
   .usage-section h2 {
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 10px;
+      font-size: clamp(2rem, 4vw, 3.5rem); /* 根据屏幕大小动态调整 */
+      font-weight: 600;
+      margin-bottom: 10px;
   }
 
+  /* 动态段落字体 */
   .usage-section p {
-    font-size: 18px;
-    color: #DDD; /* 稍微降低亮度，防止过度对比 */
-    margin-bottom: 40px;
+      font-size: clamp(1rem, 2vw, 1.5rem);
+      color: #DDD;
+      margin-bottom: 40px;
   }
 
-  /* 3 个圆角矩形容器 */
+  /* 3 个卡片的容器 */
   .usage-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 2vw;
+      max-width: 1200px;
+      margin: 0 auto;
+      flex-wrap: wrap;
   }
 
-  /* 每个使用场景的卡片 */
+  /* 每个卡片 */
   .usage-card {
-    flex: 1;
-    background: rgba(255, 255, 255, 0.15); /* 半透明浅色背景 */
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-    transition: transform 0.3s ease-in-out, background 0.3s;
+      flex: 1;
+      background: rgba(255, 255, 255, 0.15);
+      padding: clamp(15px, 3vw, 30px); /* 卡片内边距动态变化 */
+      border-radius: 15px;
+      text-align: center;
+      transition: transform 0.3s ease-in-out, background 0.3s;
+      min-width: 250px; /* 防止太小 */
   }
 
-  /* 悬停时让卡片有一点亮度变化和缩放 */
+  /* 悬停效果 */
   .usage-card:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.25);
   }
 
-  /* 圆角矩形中的 Icon */
+  /* 图标大小动态变化 */
   .usage-icon {
-    width: 80px; /* 适中的尺寸 */
-    margin-bottom: 15px;
-    opacity: 0.9;
+      width: clamp(50px, 10vw, 80px);
+      margin-bottom: 15px;
+      opacity: 0.9;
   }
 
-  /* 标题 */
+  /* 卡片标题 */
   .usage-card h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    font-weight: bold;
+      font-size: clamp(1.2rem, 2.5vw, 2rem);
+      margin-bottom: 10px;
+      font-weight: bold;
   }
 
-  /* 文字描述 */
+  /* 卡片描述 */
   .usage-card p {
-    font-size: 16px;
-    color: #EEE;
-    line-height: 1.5;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: #EEE;
+      line-height: 1.5;
   }
+
+  /* 🟢 当屏幕变小时，卡片改为纵向排列 */
+  @media (max-width: 800px) {
+      .usage-container {
+          flex-direction: column;
+          gap: 15px;
+          align-items: center;
+      }
+      
+      .usage-card {
+          width: 80%;
+      }
+  }
+
+  /* 🟢 适配更小的屏幕 */
+  @media (max-width: 500px) {
+      .usage-card {
+          width: 90%;
+      }
+  }
+
 </style>
