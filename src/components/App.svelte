@@ -226,7 +226,7 @@
           {:else if agents[activeAgentIndex] === "OCR"}
             <h3>OCR Agent</h3>
             <p>
-              The OCR Agent processes on-screen content and converts it into structured descriptions, 
+              The OCR Agent processes on-screen content, converting it into structured descriptions, 
               making information more accessible.
             </p>
             <ul>
@@ -671,7 +671,6 @@
       border-radius: 10px;
       width: clamp(320px, 48vw, 500px);
       min-height: clamp(220px, 32vh, 500px);
-      max-height: 500px;
       display: flex;
       flex-direction: column;
       justify-content: center;
