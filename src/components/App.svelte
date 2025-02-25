@@ -232,8 +232,8 @@
             <ul>
               <li>Extracts text and images from the screen</li>
               <li>Describes UI elements for easier navigation</li>
-              <li>Helps visually impaired users with screen narration</li>
               <li>Collaborates with the Self-Operating System Agent for interactive tasks</li>
+              <li>Helps visually impaired users with screen narration</li>
             </ul>
           {:else if agents[activeAgentIndex] === "selfOperating"}
             <h3>Self-Operating System Agent</h3>
