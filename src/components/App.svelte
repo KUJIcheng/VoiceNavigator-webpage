@@ -424,7 +424,7 @@
 
     .top-bar {
         justify-content: center;
-        padding: 0 20px;
+        padding: 0 0px;
     }
 
     .logo-container {
@@ -670,7 +670,7 @@
       padding: clamp(12px, 2vw, 35px);
       border-radius: 10px;
       width: clamp(320px, 48vw, 500px);
-      min-height: clamp(220px, 32vh, 500px);
+      min-height: clamp(220px, 37vh, 700px);
       display: flex;
       flex-direction: column;
       justify-content: center;
