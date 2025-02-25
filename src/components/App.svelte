@@ -11,7 +11,7 @@
   const positions = [
     { bottom: "-10%", left: "46%", transform: `translate(-${radius}, 0) scale(1)` }, // 左下角
     { bottom: "30%", left: "50%", transform: `translateX(-50%) scale(1.5)` },   // 正下方（放大）
-    { bottom: "-10%", left: "46%", transform: `translate(${radius}, 0) scale(1)` }  // 右下角
+    { bottom: "-10%", left: "43%", transform: `translate(${radius}, 0) scale(1)` }  // 右下角
   ];
 
   // 初始位置：greeter(中间) -> OCR(左下) -> selfOperating(右下)
@@ -218,10 +218,10 @@
               the appropriate agent.
             </p>
             <ul>
-              <li>Engages with users to understand their needs</li>
-              <li>Determines whether tasks require system control or content interpretation</li>
-              <li>Seamlessly hands off tasks to other agents</li>
-              <li>Provides contextual follow-ups for smoother interactions</li>
+              <li>Interacts with users to identify their needs</li>
+              <li>Decides if tasks need system control or content processing</li>
+              <li>Efficiently delegates tasks to the right agent</li>
+              <li>Offers follow-ups for a smoother experience</li>
             </ul>
           {:else if agents[activeAgentIndex] === "OCR"}
             <h3>OCR Agent</h3>
@@ -230,10 +230,10 @@
               making information more accessible.
             </p>
             <ul>
-              <li>Extracts text and graphical information from the screen</li>
-              <li>Provides descriptions of UI elements for better navigation</li>
-              <li>Assists visually impaired users by narrating content</li>
-              <li>Works alongside the Self-Operating System Agent for interactive tasks</li>
+              <li>Extracts text and images from the screen</li>
+              <li>Describes UI elements for easier navigation</li>
+              <li>Helps visually impaired users with screen narration</li>
+              <li>Collaborates with the Self-Operating System Agent for interactive tasks</li>
             </ul>
           {:else if agents[activeAgentIndex] === "selfOperating"}
             <h3>Self-Operating System Agent</h3>
@@ -670,7 +670,7 @@
       padding: clamp(12px, 2vw, 35px);
       border-radius: 10px;
       width: clamp(320px, 48vw, 500px);
-      min-height: clamp(220px, 37vh, 700px);
+      min-height: clamp(220px, 32vh, 500px);
       display: flex;
       flex-direction: column;
       justify-content: center;
