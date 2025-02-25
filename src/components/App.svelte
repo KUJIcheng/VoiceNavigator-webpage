@@ -285,15 +285,63 @@
       <p>Showcasing use cases for visually impaired users, elderly users, and general users.</p>
     </section> -->
 
-    <section id="impact">
+    <section id="impact" class="impact-section">
+      <h2 class="impact-title">Closing the Digital Divide with AI</h2>
+      <p class="impact-intro">
+          AI is transforming the way people interact with technology, making it more intuitive, accessible, and inclusive. 
+          Our intelligent multi-agent framework redefines digital interaction by breaking barriers and expanding accessibility.
+      </p>
+  
+      <div class="impact-content">
+          <!-- 中央 AI 核心图像 -->
+          <div class="impact-core">
+              <img src="VoiceNavigatorIcon.png" alt="AI Core" class="core-image">
+          </div>
+  
+          <!-- 影响点：围绕 AI 核心布局 -->
+          <div class="impact-items">
+              <div class="impact-item">
+                  <img src="accessibility.png" alt="Accessibility" class="impact-icon" />
+                  <h3>Universal Accessibility</h3>
+                  <p>Empowers individuals with disabilities through voice-controlled operations and real-time content interpretation.</p>
+              </div>
+  
+              <div class="impact-item">
+                  <img src="automation.png" alt="Automation" class="impact-icon" />
+                  <h3>Task Automation</h3>
+                  <p>Reduces the complexity of digital tasks by automating workflows with AI-powered commands.</p>
+              </div>
+  
+              <div class="impact-item">
+                  <img src="adaptive.png" alt="Adaptive Assistance" class="impact-icon" />
+                  <h3>Adaptive Assistance</h3>
+                  <p>AI adapts to different user needs, providing personalized and context-aware interaction.</p>
+              </div>
+  
+              <div class="impact-item">
+                  <img src="digital-inclusion.png" alt="Digital Inclusion" class="impact-icon" />
+                  <h3>Bridging the Gap</h3>
+                  <p>Expands digital literacy and enables a more inclusive technological ecosystem.</p>
+              </div>
+          </div>
+      </div>
+    </section>
+  
+    <!-- <section id="impact">
       <h2>Closing the Digital Divide with AI</h2>
       <p>Discussing how AI helps reduce the digital divide and improves technology accessibility.</p>
-    </section>
+    </section> -->
 
-    <section id="performance">
+    <section id="performance" class="performance-section">
+      <h2 class="performance-title">Performance Benchmarking and Comparisons</h2>
+      <p class="coming-soon">Coming Soon...</p>
+    </section>
+  
+
+    <!-- <section id="performance">
       <h2>Performance Benchmarking and Comparisons</h2>
       <p>Presenting performance evaluations and comparisons with other systems.</p>
-    </section>
+    </section> -->
   </div>
 </main>
 
@@ -369,6 +417,23 @@
     font-weight: bold;
   }
 
+  @media (max-width: 800px) {
+    .nav {
+        display: none;
+    }
+
+    .top-bar {
+        justify-content: center;
+        padding: 0 20px;
+    }
+
+    .logo-container {
+        justify-content: center;
+        width: 100%;
+    }
+  }
+
+  /* 简介部分----------------------------------------------------------------------------------------------------------------- */
   .intro-section {
     display: flex;
     flex-direction: column;
@@ -382,7 +447,7 @@
     padding-top: 9vh;
   }
 
-  /* 🟡 主要介绍框架的大框 */
+  /* 主要介绍框架的大框 */
   .intro-content {
       max-width: 1000px;
       padding: clamp(20px, 2vw, 40px);
@@ -436,7 +501,7 @@
       font-size: clamp(0.8rem, 0.75vw, 1.1rem);
   }
 
-  /* 📌 团队成员部分 */
+  /* 团队成员部分 */
   .team-container {
       display: flex;
       justify-content: center;
@@ -445,7 +510,7 @@
       flex-wrap: wrap;
   }
 
-  /* 🏆 团队成员卡片 */
+  /* 团队成员卡片 */
   .team-member {
       background: rgba(255, 255, 255, 0.1);
       padding: clamp(5px, 1vw, 10px);
@@ -461,7 +526,7 @@
       background: rgba(255, 255, 255, 0.2);
   }
 
-  /* 🎭 头像 */
+  /* 头像 */
   .team-photo {
       width: 100%;
       aspect-ratio: 1;
@@ -469,19 +534,19 @@
       object-fit: cover;
   }
 
-  /* 🏷️ 名字 */
+  /* 名字 */
   .team-member h4 {
       font-size: clamp(0.9rem, 0.2vw, 1.4rem);
       margin-top: 8px;
   }
 
-  /* 📧 邮箱 */
+  /* 邮箱 */
   .team-member p {
       font-size: clamp(0.7rem, 0.2vw, 1.1rem);
       color: #ccc;
   }
 
-  /* 📌 小屏幕优化 */
+  /* 小屏幕优化 */
   @media (max-width: 800px) {
       .features {
           flex-direction: column;
@@ -509,102 +574,145 @@
       }
   }
 
+  /* 架构介绍----------------------------------------------------------------------------------------------------------------- */
   .framework-section {
     display: flex;
-    justify-content: flex-start; /* 整体靠左 */
+    justify-content: space-evenly; /* 让左右两部分均匀分布 */
     align-items: center;
-    height: 90vh;
-    padding: 50px;
+    min-height: 90vh;
+    padding: 5vh 6vw;
     background: linear-gradient(135deg, #12172A, #0A2E5D);
     color: white;
-  }
-
-  .animation-container {
-    position: relative;
-    width: 50%; /* 让动画区域稍微靠左 */
-    height: 400px;
-  }
-
-  /* 用户图像 */
-  .user {
-    position: absolute;
-    top: 0%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  /* 3 个 agent 图标 */
-  .agent {
-    position: absolute;
-    transition: all 1s ease-in-out;
-  }
-
-  /* 右侧 UI */
-  .info-container {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     text-align: center;
+    gap: clamp(100px, 20vw, 300px); /* 适当拉开左右间距 */
   }
 
+  /* 左侧动画区域 */
+  .animation-container {
+      position: relative;
+      width: clamp(350px, 42vw, 500px);
+      height: clamp(380px, 50vh, 550px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+
+  /* 用户头像 */
+  .user {
+      position: absolute;
+      top: calc(30% - 8vw);
+      left: 50%;
+      transform: translateX(-50%);
+      width: clamp(60px, 6vw, 120px);
+  }
+
+  /* Agent 图标 */
+  .agent {
+      position: absolute;
+      transition: all 1s ease-in-out;
+      width: clamp(50px, 7vw, 110px);
+  }
+
+  /* 右侧 UI 容器 */
+  .info-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: clamp(320px, 48vw, 500px);
+  }
+
+  /* 介绍文本 */
+  .framework-intro-text {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1rem, 1.3vw, 1.7rem);
+      font-weight: 500;
+      text-align: center;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, #FFD700, #FFA500, #FF4500);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0px 0px 10px rgba(255, 215, 0, 0.8);
+      padding-bottom: 15px;
+  }
+
+  /* 选择按钮 */
   .agent-buttons {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
+      display: flex;
+      gap: clamp(12px, 1.5vw, 24px);
+      margin-bottom: 25px;
   }
 
   .agent-buttons button {
-    background: none;
-    border: 2px solid transparent;
-    padding: 10px;
-    border-radius: 10px;
-    cursor: pointer;
+      background: none;
+      border: 2px solid transparent;
+      padding: 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      width: clamp(55px, 12vw, 90px);
+      height: clamp(55px, 12vw, 90px);
   }
 
   .agent-buttons button img {
-    width: 50px;
+      width: 100%;
   }
 
   .agent-buttons button:hover,
   .agent-buttons button.selected {
-    border-color: #FFD700;
-    background: rgba(255, 255, 255, 0.2);
+      border-color: #FFD700;
+      background: rgba(255, 255, 255, 0.2);
   }
 
+  /* 详细描述 */
   .agent-description {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 10px;
-    width: 420px;
-    min-height: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .framework-intro-text {
-    font-family: 'Orbitron', sans-serif; /* 现代科技字体 */
-    font-size: 18px; /* 适当放大字体 */
-    font-weight: 500; /* 加粗提升可读性 */
-    text-align: center; /* 居中显示 */
-    letter-spacing: 1px; /* 增加字间距，让文本更有科技感 */
-    background: linear-gradient(90deg, #FFD700, #FFA500, #FF4500); /* 金色->橙色->红色渐变 */
-    -webkit-background-clip: text; /* 让背景仅应用于文本 */
-    background-clip: text;
-    -webkit-text-fill-color: transparent; /* 让文本变成渐变色 */
-    text-shadow: 0px 0px 10px rgba(255, 215, 0, 0.8); /* 发光效果 */
-    padding-bottom: 10px; /* 与按钮部分保持一定距离 */
+      background: rgba(255, 255, 255, 0.1);
+      padding: clamp(12px, 2vw, 35px);
+      border-radius: 10px;
+      width: clamp(320px, 48vw, 500px);
+      min-height: clamp(220px, 32vh, 500px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
   }
 
   .agent-description ul {
-    padding-left: 20px;
+      padding-left: 10px;
+      font-size: clamp(1rem, 1vw, 1rem);
   }
 
   .agent-description li {
-    margin: 0px 0;
+      margin: 6px 0;
   }
 
+  /* 小屏幕适配 */
+  @media (max-width: 900px) {
+      .framework-section {
+          flex-direction: column;
+          align-items: center;
+          gap: clamp(40px, 8vw, 60px);
+      }
+
+      .animation-container {
+          width: 100%;
+          height: clamp(250px, 40vh, 280px);
+      }
+
+      .info-container {
+          width: 90%;
+          margin-top: 50px;
+      }
+
+      .agent-buttons {
+          justify-content: center;
+      }
+
+      .agent-description {
+          width: 100%;
+      }
+  }
+
+  /* 应用场景----------------------------------------------------------------------------------------------------------------- */
   .usage-section {
     text-align: center;
     min-height: 90vh;
@@ -675,7 +783,6 @@
       line-height: 1.5;
   }
 
-  /* 🟢 当屏幕变小时，卡片改为纵向排列 */
   @media (max-width: 800px) {
       .usage-container {
           flex-direction: column;
@@ -688,11 +795,171 @@
       }
   }
 
-  /* 🟢 适配更小的屏幕 */
   @media (max-width: 500px) {
       .usage-card {
           width: 90%;
       }
   }
 
+  /* 社会影响----------------------------------------------------------------------------------------------------------------- */
+  .impact-section {
+      text-align: center;
+      padding: 8vh 6vw; /* 缩小 padding 使内容更集中 */
+      min-height: 90vh;
+      background: linear-gradient(135deg, #0A2956, #135BA0);
+      color: white;
+      position: relative;
+  }
+
+  /* 标题 */
+  .impact-title {
+      font-size: clamp(1.6rem, 2vw, 2.6rem); /* 字体略缩小 */
+      font-weight: bold;
+      margin-bottom: 1vh;
+  }
+
+  /* 概述 */
+  .impact-intro {
+      font-size: clamp(0.85rem, 1vw, 1.3rem); /* 字体变小一些 */
+      max-width: 750px;
+      margin: 0 auto 3vh auto; /* 减少底部间距 */
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.85);
+  }
+
+  /* 主体内容：大屏时左右排布 */
+  .impact-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2.5vw; /* 缩小间距 */
+      position: relative;
+  }
+
+  /* AI 核心（左侧） */
+  .impact-core {
+      width: clamp(90px, 16vw, 200px); /* 整体略缩小 */
+      height: clamp(90px, 16vw, 200px);
+      background: rgba(203, 216, 228, 0.6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.35);
+  }
+
+  .core-image {
+      width: 65%;
+      opacity: 0.85;
+  }
+
+  /* 影响点布局 */
+  .impact-items {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2vw; /* 缩小间距 */
+      max-width: 680px;
+  }
+
+  /* 影响点卡片 */
+  .impact-item {
+      background: rgba(255, 255, 255, 0.1);
+      padding: clamp(8px, 1.2vw, 18px); /* 适当缩小 */
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s ease-in-out, background 0.3s;
+  }
+
+  /* 悬停效果 */
+  .impact-item:hover {
+      transform: translateY(-4px);
+      background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* 影响点图标 */
+  .impact-icon {
+      width: clamp(35px, 4.5vw, 70px);
+      margin-bottom: 10px;
+      opacity: 0.8;
+  }
+
+  /* 影响点标题 */
+  .impact-item h3 {
+      font-size: clamp(0.9rem, 1.2vw, 1.6rem);
+      margin-bottom: 6px;
+      font-weight: bold;
+  }
+
+  /* 影响点描述 */
+  .impact-item p {
+      font-size: clamp(0.8rem, 0.9vw, 1.2rem);
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.4;
+  }
+
+  /* 小屏幕适配 */
+  @media (max-width: 900px) {
+      .impact-content {
+          flex-direction: column;
+          align-items: center;
+      }
+
+      .impact-core {
+          width: clamp(80px, 14vw, 180px);
+          height: clamp(80px, 14vw, 180px);
+          margin-bottom: 2.5vh; /* 略微减少间距 */
+      }
+
+      .impact-items {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 12px; /* 减少间距 */
+      }
+
+      .impact-item {
+          width: 80%;
+      }
+  }
+
+  @media (max-width: 500px) {
+      .impact-item {
+          width: 90%;
+      }
+  }
+
+  /* 性能方面----------------------------------------------------------------------------------------------------------------- */
+  .performance-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 90vh;
+      padding: 5vh 6vw;
+      background: linear-gradient(135deg, #042a55, #054c81);
+      color: white;
+  }
+
+  /* 标题 */
+  .performance-title {
+      font-size: clamp(1.8rem, 2vw, 2.8rem);
+      font-family: 'Orbitron', sans-serif; /* 现代感科技字体 */
+      font-weight: bold;
+      margin-bottom: 3vh;
+  }
+
+  /* "Coming Soon..." 样式 */
+  .coming-soon {
+      font-size: clamp(2rem, 3vw, 4rem); /* 让字体大一些 */
+      font-weight: 700;
+      font-family: 'Orbitron', sans-serif; /* 现代感科技字体 */
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, #FFD700, #FFA500, #FF4500); /* 金橙红渐变 */
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0px 0px 15px rgba(255, 215, 0, 0.7); /* 柔和发光效果 */
+  }
 </style>
