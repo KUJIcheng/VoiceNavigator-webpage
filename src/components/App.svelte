@@ -146,6 +146,13 @@
         </div>
       </div>
 
+      <!-- 🔗 GitHub 按钮 -->
+      <div class="github-link">
+        <a href="https://github.com/Yuxuan-Zhang-Dexter/VoiceNavigator" target="_blank" class="github-button">
+          View on GitHub
+        </a>
+      </div>
+
       <div class="team-container">
         <div class="team-member">
             <img src="zyx.jpg" alt="ZYX" class="team-photo" />
@@ -501,12 +508,35 @@
       font-size: clamp(0.8rem, 0.75vw, 1.1rem);
   }
 
+  /* 🔗 GitHub 按钮样式 */
+  .github-link {
+      text-align: center;
+      margin-top: 15px;
+  }
+
+  .github-button {
+      display: inline-block;
+      padding: 8px 12px;
+      font-size: clamp(0.7rem, 1.2vw, 1.5rem);
+      font-weight: bold;
+      text-decoration: none;
+      color: white;
+      background: linear-gradient(90deg, #24292e, #3c3f43); /* GitHub 经典深色 */
+      border-radius: 8px;
+      transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+  }
+
+  .github-button:hover {
+      background: linear-gradient(90deg, #3c3f43, #4f545a);
+      /* transform: translateY(-3px); */
+  }
+
   /* 团队成员部分 */
   .team-container {
       display: flex;
       justify-content: center;
       gap: 0.8vw;
-      margin-top: 25px;
+      margin-top: 15px;
       flex-wrap: wrap;
   }
 
