@@ -115,6 +115,7 @@
     
     <nav class="nav">
       <button class="nav-item {activeSection === 'intro' ? 'active' : ''}" on:click={() => navigateTo('intro')}>Introduction</button>
+      <button class="nav-item {activeSection === 'demo' ? 'active' : ''}" on:click={() => navigateTo('demo')}>Demo</button>
       <button class="nav-item {activeSection === 'framework' ? 'active' : ''}" on:click={() => navigateTo('framework')}>Agent Framework</button>
       <button class="nav-item {activeSection === 'usage' ? 'active' : ''}" on:click={() => navigateTo('usage')}>Usage Scenarios</button>
       <button class="nav-item {activeSection === 'impact' ? 'active' : ''}" on:click={() => navigateTo('impact')}>Social Impact</button>
@@ -176,6 +177,28 @@
         </div>
     </div>
     </section>
+
+    <!-- Demo 视频部分 -->
+    <section id="demo" class="demo-section">
+      <h2 class="demo-title">Experience VoiceNavigator in Action</h2>
+      <p class="demo-text">
+          Watch our demo to see how VoiceNavigator seamlessly integrates AI agents for hands-free control and screen reading.
+      </p>
+      
+      <!-- YouTube 视频 -->
+      <div class="video-container">
+          <iframe 
+              width="560" 
+              height="315" 
+              src="https://www.youtube.com/embed/7SB7xdObrs4" 
+              title="YouTube Demo Video" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+          </iframe>
+      </div>
+    </section>
+
 
     <section id="framework" class="framework-section">
     
@@ -992,4 +1015,57 @@
       -webkit-text-fill-color: transparent;
       text-shadow: 0px 0px 15px rgba(255, 215, 0, 0.7); /* 柔和发光效果 */
   }
+
+  /* 🎥 Demo 视频部分 */
+  .demo-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 90vh;
+      padding: 5vh 5vw;
+      background: linear-gradient(135deg, #0E3A5A, #1541a1); /* 另一种蓝色渐变 */
+      color: white;
+      text-align: center;
+  }
+
+  /* 🔠 标题 */
+  .demo-title {
+      font-size: clamp(1.8rem, 2vw, 3rem);
+      font-weight: bold;
+      margin-bottom: 1vh;
+  }
+
+  /* 📜 概述 */
+  .demo-text {
+      font-size: clamp(1rem, 1.3vw, 1.6rem);
+      max-width: 800px;
+      margin: 0 auto 4vh auto;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.9);
+  }
+
+  /* 🎥 视频容器 */
+  .video-container {
+      position: relative;
+      width: 80%;
+      max-width: 900px;
+      aspect-ratio: 16.85 / 9; /* 确保 16:9 视频比例 */
+  }
+
+  /* 嵌入 YouTube 视频 */
+  .video-container iframe {
+      width: 100%;
+      height: 100%;
+      border-radius: 12px; /* 轻微圆角 */
+      box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
+  }
+
+  /* 📱 小屏幕适配 */
+  @media (max-width: 600px) {
+      .video-container {
+          width: 95%;
+      }
+  }
+
 </style>
